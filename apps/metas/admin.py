@@ -5,4 +5,4 @@ from .models import MetasModel
 @admin.register(MetasModel)
 class MetasAdmin(admin.ModelAdmin):
     list_display = ["mid", "name", "type", "order", "count", "parent"]
-
+    prepopulated_fields = {'slug': ('name',)}

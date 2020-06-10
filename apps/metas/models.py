@@ -7,7 +7,8 @@ class MetasModel(models.Model):
         ('category', '文章分类'),
         ('tag', '标签分类')
     ]
-    mid = models.IntegerField(primary_key=True, unique=True, editable=False, verbose_name="分类主键")
+    mid = models.AutoField(primary_key=True, unique=True, verbose_name="分类id")
+    slug = models.SlugField(allow_unicode=True, verbose_name="缩写")
     name = models.CharField(max_length=10, verbose_name="分类名称")
     type = models.CharField(choices=META_TYPE, default=META_TYPE[0][0], max_length=20, verbose_name="分类类型")
     order = models.IntegerField(default=0, verbose_name="排序")
