@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'users',
     'metas',
     'links',
-    'contents'
+    'contents',
+    'comments'
 ]
 
 MIDDLEWARE = [

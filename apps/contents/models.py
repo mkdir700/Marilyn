@@ -25,3 +25,11 @@ class ContentsModel(models.Model):
     commentsNum = models.IntegerField(default=0, verbose_name="评论数")
     allowComment = models.BooleanField(default=True, verbose_name="评论开关")
     view = models.IntegerField(default=0, verbose_name="阅读数")
+
+    class Meta:
+        verbose_name = "内容管理"
+        verbose_name_plural = verbose_name
+        ordering = ['cid']
+
+    def __str__(self):
+        return self.title
