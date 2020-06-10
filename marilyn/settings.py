@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'links',
     'contents',
     'comments',
-    'attachments'
+    'attachments',
+    'relationships'
 ]
 
 MIDDLEWARE = [

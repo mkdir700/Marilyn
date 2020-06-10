@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import RelationshipsModel
 
-# Register your models here.
+
+@admin.register(RelationshipsModel)
+class RelationshipsAdmin(admin.ModelAdmin):
+    list_display = ['__str__']
