@@ -12,4 +12,4 @@ class AttachmentModel(models.Model):
         verbose_name = "附件"
         verbose_name_plural = verbose_name
         ordering = ['-created']
-        db_table = "marilyn_attachment"
+        db_table = "marilyn_attachments"
