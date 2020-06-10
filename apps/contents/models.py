@@ -29,6 +29,7 @@ class ContentsModel(models.Model):
     class Meta:
         verbose_name = "内容管理"
         verbose_name_plural = verbose_name
+        db_table = "marilyn_contents"
         ordering = ['cid']
 
     def __str__(self):

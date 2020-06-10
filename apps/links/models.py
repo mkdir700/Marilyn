@@ -11,6 +11,7 @@ class LinksModel(models.Model):
     class Meta:
         verbose_name = "友情链接"
         verbose_name_plural = verbose_name
+        db_table = "marilyn_links"
         ordering = ['order']
 
     def __str__(self):
