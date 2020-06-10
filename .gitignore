@@ -142,3 +142,4 @@ cython_debug/
 
 .idea
 将删除 .idea/
+将删除 /apps/attachments/migrations/
