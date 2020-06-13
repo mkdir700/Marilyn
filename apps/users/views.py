@@ -4,11 +4,27 @@ from rest_framework import mixins
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import status
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication, JWTTokenUserAuthentication
 from .serializers import *
 from .models import Profile
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    """
+    :create 新建用户
+
+    :list 获取用户列表
+
+    :retrieve 获取一个用户的详细信息
+
+    :update 更新用户信息
+
+    :change_password 改变用户密码
+    """
+    authentication_classes = [SessionAuthentication, JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         if self.action == "list":
