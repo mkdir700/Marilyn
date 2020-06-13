@@ -6,9 +6,11 @@ from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication, JWTTokenUserAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializers import *
 from .models import Profile
+from .filters import UserFilter, filters
+from .paginations import UserListPagination
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -23,15 +25,19 @@ class UserViewSet(viewsets.ModelViewSet):
 
     :change_password 改变用户密码
     """
+    queryset = User.objects.order_by('-id')
     authentication_classes = [SessionAuthentication, JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_class = UserFilter
+    pagination_class = UserListPagination
 
-    def get_queryset(self):
-        if self.action == "list":
-            queryset = User.objects.order_by('-id')
-        else:
-            queryset = User.objects.order_by('-id')
-        return queryset
+    # def get_queryset(self):
+    #     if self.action == "list":
+    #         queryset = User.objects.order_by('-id')
+    #     else:
+    #         queryset = User.objects.order_by('-id')
+    #     return queryset
 
     def get_serializer_class(self):
         if self.action == "list":
