@@ -24,6 +24,8 @@ class UserViewSet(viewsets.ModelViewSet):
     :update 更新用户信息
 
     :change_password 改变用户密码
+
+    :delete_multiple 批量删除
     """
     queryset = User.objects.order_by('-id')
     authentication_classes = [SessionAuthentication, JWTAuthentication]
@@ -90,3 +92,9 @@ class UserViewSet(viewsets.ModelViewSet):
         user.set_password(password)
         user.save()
         return Response({'status': 'ok'}, status=status.HTTP_200_OK)
+
+    @action(methods=['delete'])
+    def multiple_delete(self, request):
+        """批量删除用户
+
+        """
