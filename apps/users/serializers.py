@@ -33,14 +33,14 @@ class UserDetailSerializer(serializers.ModelSerializer):
 class CreateUserSerializer(serializers.ModelSerializer):
     """新建用户"""
     password = serializers.CharField(required=True, label="密码", max_length=16)
-    password2 = serializers.CharField(required=True, label="重复密码", max_length=16)
+    checkPassword = serializers.CharField(required=True, label="重复密码", max_length=16)
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'password2']
+        fields = ['username', 'password', 'checkPassword']
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['password2']:
+        if attrs['password'] != attrs['checkPassword']:
             raise serializers.ValidationError('两次密码不一致')
         return attrs
 
@@ -64,3 +64,8 @@ class ChangePasswordSerialize(serializers.ModelSerializer):
         model = User
         fields = ['id', 'password']
         read_only_fields = ['username']
+
+
+class DeleteMultipleUser(serializers.ModelSerializer):
+    """批量删除用户"""
+    userList = serializers.ListSerializer
