@@ -52,6 +52,8 @@ class UserViewSet(viewsets.ModelViewSet):
             serializer_class = UpdateUserSerializer
         elif self.action == "change_password":
             serializer_class = ChangePasswordSerialize
+        elif self.action == "delete_multiple":
+            serializer_class = DeleteMultipleUserSerializer
         else:
             serializer_class = UserDetailSerializer
         return serializer_class
@@ -93,8 +95,12 @@ class UserViewSet(viewsets.ModelViewSet):
         user.save()
         return Response({'status': 'ok'}, status=status.HTTP_200_OK)
 
-    @action(methods=['delete'])
-    def multiple_delete(self, request):
+    @action(methods=['delete'], detail=False)
+    def delete_multiple(self, request):
         """批量删除用户
-
         """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        userList = serializer.validated_data['userList']
+        User.objects.filter(id__in=userList).delete()
+        return Response(data={'status': 'ok'}, status=status.HTTP_200_OK)
