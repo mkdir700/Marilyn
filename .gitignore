@@ -141,6 +141,6 @@ dmypy.json
 cython_debug/
 
 .idea
+migrations
 将删除 .idea/
 将删除 /apps/attachments/migrations/
-vue-element-admin/node_modules/
