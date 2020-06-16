@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from metas.models import MetasModel
 
 
 class ContentsModel(models.Model):
@@ -11,6 +12,9 @@ class ContentsModel(models.Model):
 
     cid = models.AutoField(primary_key=True, unique=True, verbose_name="id")
     title = models.CharField(max_length=30, verbose_name="标题")
+    metas = models.ManyToManyField(MetasModel, through='RelationshipsModel',
+                                   through_fields=['content', 'meta'],
+                                   related_name="meta_list")
     # slug用户可以自定义, 默认和主键cid同值
     slug = models.SlugField(allow_unicode=True, verbose_name="缩写")
     created = models.DateTimeField(auto_created=True, verbose_name="创建时间")
@@ -34,3 +38,13 @@ class ContentsModel(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class RelationshipsModel(models.Model):
+    content = models.ForeignKey(ContentsModel, on_delete=models.CASCADE)
+    meta = models.ForeignKey(MetasModel, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "关系表"
+        verbose_name_plural = verbose_name
+        db_table = "marilyn_relationships"
