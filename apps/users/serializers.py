@@ -69,7 +69,7 @@ class ChangePasswordSerialize(serializers.ModelSerializer):
 
 class DeleteMultipleUserSerializer(serializers.Serializer):
     """批量删除用户"""
-    userList = serializers.CharField(label="用户id数组", required=True, allow_null=False)
+    user_list = serializers.CharField(label="用户id数组", required=True, allow_null=False)
 
     def create(self, validated_data):
         pass
@@ -78,10 +78,10 @@ class DeleteMultipleUserSerializer(serializers.Serializer):
         pass
 
     def validate(self, attrs):
-        userList = attrs['userList']
+        user_list = attrs['user_list']
         from json.decoder import JSONDecodeError
         try:
-            attrs['userList'] = json.loads('[{}]'.format(userList))
+            attrs['user_list'] = json.loads(user_list)
         except JSONDecodeError:
             raise serializers.ValidationError('格式不正确')
         return attrs

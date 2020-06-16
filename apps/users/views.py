@@ -8,7 +8,6 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializers import *
-from .models import Profile
 from .filters import UserFilter, filters
 from .paginations import UserListPagination
 
@@ -97,10 +96,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(methods=['delete'], detail=False)
     def delete_multiple(self, request):
-        """批量删除用户
-        """
+        """批量删除用户"""
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        userList = serializer.validated_data['userList']
-        User.objects.filter(id__in=userList).delete()
-        return Response(data={'status': 'ok'}, status=status.HTTP_200_OK)
+        userList = serializer.validated_data['user_list']
+        self.get_queryset().filter(id__in=userList).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
