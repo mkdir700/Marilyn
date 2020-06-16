@@ -34,6 +34,4 @@ def create_content(sender, instance, action, pk_set, **kwargs):
 @receiver(pre_delete, sender=ContentsModel, dispatch_uid="delete_content")
 def delete_content(sender, instance, **kwargs):
     metas = MetasModel.objects.filter(meta_list__cid=instance.cid)
-    for meta in metas:
-        meta.count -= 1
-        meta.save()
+    sub_count(metas)
