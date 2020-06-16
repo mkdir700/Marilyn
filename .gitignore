@@ -139,8 +139,10 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-
 .idea
-#migrations/
+!__init__.py
+migrations/
+!migrations/__init__.py
 db.sqlite3.bak
 将删除 .idea/
+!/apps/attachments/migrations/__init__.py
