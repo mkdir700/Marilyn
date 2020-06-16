@@ -141,6 +141,6 @@ dmypy.json
 cython_debug/
 
 .idea
-migrations
+#migrations/
+db.sqlite3.bak
 将删除 .idea/
-将删除 /apps/attachments/migrations/
