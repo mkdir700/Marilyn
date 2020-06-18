@@ -6,4 +6,4 @@ class AttachmentsConfig(AppConfig):
     verbose_name = "附件管理"
 
     def ready(self):
-        import attachments.signals.file_handler
+        import attachments.signals
