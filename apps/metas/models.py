@@ -19,6 +19,7 @@ class MetasModel(models.Model):
         verbose_name = "分类管理"
         verbose_name_plural = verbose_name
         db_table = "marilyn_metas"
+        ordering = ['order']
 
     def __str__(self):
         return self.name
