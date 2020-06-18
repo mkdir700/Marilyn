@@ -1,6 +1,5 @@
 from rest_framework import status
 from rest_framework import viewsets
-from rest_framework import mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -24,22 +23,11 @@ class ContentsViewSet(viewsets.ModelViewSet):
             serializer_class = ContentSerializer
         return serializer_class
 
-    # def create(self, request, *args, **kwargs):
-    #     """新建文章"""
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_create(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-    #
-    # def perform_create(self, serializer):
-    #     serializer.save()
-
     @action(methods=['delete'], detail=False)
     def delete_multiple(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        content_list = serializer.validated_data['content_list']
-        self.get_queryset().filter(cid__in=content_list).delete()
+        delete_list = serializer.validated_data['delete_list']
+        self.get_queryset().filter(cid__in=delete_list).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
