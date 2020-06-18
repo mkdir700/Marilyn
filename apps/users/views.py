@@ -1,11 +1,10 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets
-from rest_framework import mixins
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializers import *
 from .filters import UserFilter, filters
@@ -28,7 +27,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.order_by('-id')
     authentication_classes = [SessionAuthentication, JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
     filter_backends = [filters.DjangoFilterBackend]
     filterset_class = UserFilter
     pagination_class = UserListPagination
