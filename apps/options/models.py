@@ -10,6 +10,6 @@ class OptionsModel(models.Model):
     defaultAllowComment = models.BooleanField(default=True, verbose_name="是否允许评论")
 
     class Meta:
-        verbose_name = "站点管理"
+        verbose_name = "站点信息"
         verbose_name_plural = verbose_name
         db_table = "marilyn_options"
