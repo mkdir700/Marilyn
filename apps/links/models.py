@@ -9,7 +9,7 @@ class LinksModel(models.Model):
     image = models.CharField(max_length=50, null=True, blank=True, verbose_name="图标链接")
 
     class Meta:
-        verbose_name = "友情链接"
+        verbose_name = "友情"
         verbose_name_plural = verbose_name
         db_table = "marilyn_links"
         ordering = ['order']

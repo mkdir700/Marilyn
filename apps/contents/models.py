@@ -31,7 +31,7 @@ class ContentsModel(models.Model):
     view = models.IntegerField(default=0, verbose_name="阅读数")
 
     class Meta:
-        verbose_name = "内容管理"
+        verbose_name = "文章"
         verbose_name_plural = verbose_name
         db_table = "marilyn_contents"
         ordering = ['cid']

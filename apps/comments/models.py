@@ -28,7 +28,7 @@ class CommentsModel(models.Model):
     stars = models.IntegerField(default=0, verbose_name="点赞数")
 
     class Meta:
-        verbose_name = "留言管理"
+        verbose_name = "留言/评论"
         verbose_name_plural = verbose_name
         ordering = ['coid']
         db_table = "marilyn_comments"
