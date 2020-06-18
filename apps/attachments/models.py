@@ -14,7 +14,11 @@ def new_path(instance, filename):
 
 
 class AttachmentModel(models.Model):
-    content = models.ForeignKey(ContentsModel, on_delete=models.CASCADE, verbose_name="所属文章")
+    cid = models.ForeignKey(
+        ContentsModel,
+        on_delete=models.CASCADE,
+        db_column="cid",
+        verbose_name="所属文章")
     # file = models.FileField(upload_to='upload/%Y/%m/%d/')
     file = models.FileField(upload_to=new_path)
     created = models.DateTimeField(auto_now_add=True)
