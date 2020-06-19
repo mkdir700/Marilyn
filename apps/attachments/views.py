@@ -1,11 +1,10 @@
+from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
 from rest_framework.authentication import SessionAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAdminUser
-from rest_framework import status
-
 from .serializers import *
 
 
@@ -18,8 +17,6 @@ class AttachmentViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == "delete_multiple":
             serializer_class = DeleteAttachmentsSerializer
-        elif self.action == "list_unused":
-            serializer_class = UnusedAttachmentsSerializer
         else:
             serializer_class = AttachmentsSerializer
         return serializer_class
