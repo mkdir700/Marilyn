@@ -2,6 +2,7 @@ import json
 from rest_framework import serializers
 from .models import ContentsModel
 from metas.models import MetasModel
+from common.utils import DeleteMultipleSerializer
 
 
 class ContentSerializer(serializers.ModelSerializer):
@@ -32,22 +33,6 @@ class ContentDetailSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class DeleteContentSerializer(serializers.Serializer):
+class DeleteContentSerializer(DeleteMultipleSerializer):
     """删除一篇或多篇文章"""
-
-    delete_list = serializers.CharField(required=True, label="待删除文章ID")
-
-    def update(self, instance, validated_data):
-        pass
-
-    def create(self, validated_data):
-        pass
-
-    def validate(self, attrs):
-        delete_list = attrs['delete_list']
-        from json.decoder import JSONDecodeError
-        try:
-            attrs['delete_list'] = json.loads(delete_list)
-        except JSONDecodeError:
-            raise serializers.ValidationError('格式不正确')
-        return attrs
+    pass

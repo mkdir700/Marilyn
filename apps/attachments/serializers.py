@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import AttachmentModel
+from common.utils import DeleteMultipleSerializer
 
 
 class AttachmentsSerializer(serializers.ModelSerializer):
@@ -9,12 +10,5 @@ class AttachmentsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class DeleteAttachmentsSerializer(serializers.Serializer):
-    pending_deletion = serializers.ListField(child=serializers.IntegerField())
-
-    def create(self, validated_data):
-        pass
-
-    def update(self, instance, validated_data):
-        pass
-
+class DeleteAttachmentsSerializer(DeleteMultipleSerializer):
+    pass

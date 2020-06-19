@@ -7,9 +7,10 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializers import *
 from .models import ContentsModel
+from common.mixin import DeleteMultipleModelMixin
 
 
-class ContentsViewSet(viewsets.ModelViewSet):
+class ContentsViewSet(viewsets.ModelViewSet, DeleteMultipleModelMixin):
 
     queryset = ContentsModel.objects.all()
     authentication_classes = [SessionAuthentication, JWTAuthentication]
@@ -22,12 +23,4 @@ class ContentsViewSet(viewsets.ModelViewSet):
         else:
             serializer_class = ContentSerializer
         return serializer_class
-
-    @action(methods=['delete'], detail=False)
-    def delete_multiple(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        delete_list = serializer.validated_data['delete_list']
-        self.get_queryset().filter(cid__in=delete_list).delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 

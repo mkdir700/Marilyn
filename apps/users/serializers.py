@@ -2,6 +2,7 @@ import json
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Profile as UserProfile
+from common.utils import DeleteMultipleSerializer
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -67,21 +68,7 @@ class ChangePasswordSerialize(serializers.ModelSerializer):
         read_only_fields = ['username']
 
 
-class DeleteMultipleUserSerializer(serializers.Serializer):
+class DeleteMultipleUserSerializer(DeleteMultipleSerializer):
     """批量删除用户"""
-    user_list = serializers.CharField(label="用户id数组", required=True, allow_null=False)
+    pass
 
-    def create(self, validated_data):
-        pass
-
-    def update(self, instance, validated_data):
-        pass
-
-    def validate(self, attrs):
-        user_list = attrs['user_list']
-        from json.decoder import JSONDecodeError
-        try:
-            attrs['user_list'] = json.loads(user_list)
-        except JSONDecodeError:
-            raise serializers.ValidationError('格式不正确')
-        return attrs

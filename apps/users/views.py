@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -9,9 +8,10 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializers import *
 from .filters import UserFilter, filters
 from .paginations import UserListPagination
+from common.mixin import DeleteMultipleModelMixin
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet, DeleteMultipleModelMixin):
     """
     :create 新建用户
 
@@ -31,13 +31,6 @@ class UserViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.DjangoFilterBackend]
     filterset_class = UserFilter
     pagination_class = UserListPagination
-
-    # def get_queryset(self):
-    #     if self.action == "list":
-    #         queryset = User.objects.order_by('-id')
-    #     else:
-    #         queryset = User.objects.order_by('-id')
-    #     return queryset
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -93,11 +86,3 @@ class UserViewSet(viewsets.ModelViewSet):
         user.save()
         return Response({'status': 'ok'}, status=status.HTTP_200_OK)
 
-    @action(methods=['delete'], detail=False)
-    def delete_multiple(self, request):
-        """批量删除用户"""
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        userList = serializer.validated_data['user_list']
-        self.get_queryset().filter(id__in=userList).delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
