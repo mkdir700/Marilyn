@@ -25,12 +25,14 @@ from contents.views import ContentsViewSet
 from users.views import UserViewSet
 from metas.views import MetaViewSet
 from attachments.views import AttachmentViewSet
+from links.views import LinkViewSet
 
 router = routers.DefaultRouter()
 router.register('contents', ContentsViewSet, basename="contents")
 router.register('users', UserViewSet, basename='users')
 router.register('metas', MetaViewSet, basename='metas')
 router.register('attachments', AttachmentViewSet, basename='attachments')
+router.register('links', LinkViewSet, basename='links')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
