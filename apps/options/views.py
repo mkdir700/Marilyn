@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from rest_framework import mixins
+from .serializer import OptionSerializer
+from .models import OptionsModel
 
-# Create your views here.
+
+class OptionViewSet(viewsets.ReadOnlyModelViewSet,
+                    mixins.CreateModelMixin,
+                    mixins.UpdateModelMixin,):
+    queryset = OptionsModel.objects.all()
+    serializer_class = OptionSerializer
+

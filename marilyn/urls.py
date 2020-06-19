@@ -21,6 +21,7 @@ from rest_framework_simplejwt.views import (
 )
 from rest_framework.documentation import include_docs_urls
 from rest_framework import routers
+from options.views import OptionViewSet
 from contents.views import ContentsViewSet
 from users.views import UserViewSet
 from metas.views import MetaViewSet
@@ -29,7 +30,8 @@ from links.views import LinkViewSet
 from comments.views import CommentViewSet
 
 router = routers.DefaultRouter()
-router.register('contents', ContentsViewSet, basename="contents")
+router.register('options', OptionViewSet, basename='options')
+router.register('contents', ContentsViewSet, basename='contents')
 router.register('users', UserViewSet, basename='users')
 router.register('metas', MetaViewSet, basename='metas')
 router.register('attachments', AttachmentViewSet, basename='attachments')
