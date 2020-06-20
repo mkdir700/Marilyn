@@ -14,6 +14,8 @@ import os
 import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from datetime import timedelta
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
@@ -170,4 +172,11 @@ REST_FRAMEWORK = {
     # )
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20
+}
+
+SIMPLE_JWT = {
+    # 方便开发调试,过期时间调为30秒
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=30),  # 指定第一次获取token的有效时间
+    # 'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),  # 指定第一次获取token的有效时间
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # 刷新获取后token的失效时间
 }
