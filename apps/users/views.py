@@ -2,9 +2,9 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import status
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.authentication import SessionAuthentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAdminUser, DjangoModelPermissions
 from .serializers import *
 from .filters import UserFilter, filters
 from .paginations import UserListPagination
@@ -27,7 +27,7 @@ class UserViewSet(viewsets.ModelViewSet, DeleteMultipleModelMixin):
     """
     queryset = User.objects.order_by('-id')
     authentication_classes = [SessionAuthentication, JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
     filter_backends = [filters.DjangoFilterBackend]
     filterset_class = UserFilter
     pagination_class = UserListPagination

@@ -3,6 +3,9 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAdminUser, DjangoModelPermissions
+from rest_framework.authentication import SessionAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from django_filters import rest_framework as filters
 from common.mixin import DeleteMultipleModelMixin
 from .serializers import (
@@ -18,6 +21,8 @@ class CommentViewSet(viewsets.ModelViewSet, DeleteMultipleModelMixin):
     serializer_class = CommentsSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filter_class = CommentFilter
+    authentication_classes = [SessionAuthentication, JWTAuthentication]
+    permission_classes = [IsAdminUser, DjangoModelPermissions]
 
     def get_serializer_class(self):
         if self.action == "delete_multiple":

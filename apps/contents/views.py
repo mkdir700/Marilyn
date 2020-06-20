@@ -1,10 +1,7 @@
-from rest_framework import status
 from rest_framework import viewsets
-from rest_framework.decorators import action
-from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from .serializers import *
 from .models import ContentsModel
 from common.mixin import DeleteMultipleModelMixin
@@ -14,7 +11,7 @@ class ContentsViewSet(viewsets.ModelViewSet, DeleteMultipleModelMixin):
 
     queryset = ContentsModel.objects.all()
     authentication_classes = [SessionAuthentication, JWTAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [DjangoModelPermissions, IsAdminUser]
     serializer_class = ContentSerializer
 
     def get_serializer_class(self):
