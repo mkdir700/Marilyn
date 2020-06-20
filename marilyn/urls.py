@@ -24,6 +24,7 @@ from rest_framework import routers
 from options.views import OptionViewSet
 from contents.views import ContentsViewSet
 from users.views import UserViewSet
+from groups.views import GroupViewSet
 from metas.views import MetaViewSet
 from attachments.views import AttachmentViewSet
 from links.views import LinkViewSet
@@ -32,6 +33,7 @@ from comments.views import CommentViewSet
 router = routers.DefaultRouter()
 router.register('options', OptionViewSet, basename='options')
 router.register('contents', ContentsViewSet, basename='contents')
+router.register('groups', GroupViewSet, basename='groups')
 router.register('users', UserViewSet, basename='users')
 router.register('metas', MetaViewSet, basename='metas')
 router.register('attachments', AttachmentViewSet, basename='attachments')
@@ -45,6 +47,4 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/', include(router.urls))
-    # path('api/', include('users.urls')),
-    # path('api/', include('contents.urls'))
 ]
