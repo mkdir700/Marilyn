@@ -25,6 +25,7 @@ from options.views import OptionViewSet
 from contents.views import ContentsViewSet
 from users.views import UserViewSet
 from groups.views import GroupViewSet
+from permissions.views import PermissionViewSet
 from metas.views import MetaViewSet
 from attachments.views import AttachmentViewSet
 from links.views import LinkViewSet
@@ -35,6 +36,7 @@ router.register('options', OptionViewSet, basename='options')
 router.register('contents', ContentsViewSet, basename='contents')
 router.register('groups', GroupViewSet, basename='groups')
 router.register('users', UserViewSet, basename='users')
+router.register('permissions', PermissionViewSet, basename='permissions')
 router.register('metas', MetaViewSet, basename='metas')
 router.register('attachments', AttachmentViewSet, basename='attachments')
 router.register('links', LinkViewSet, basename='links')
