@@ -15,8 +15,38 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView
+)
+from rest_framework.documentation import include_docs_urls
+from rest_framework import routers
+from options.views import OptionViewSet
+from contents.views import ContentsViewSet
+from users.views import UserViewSet
+from groups.views import GroupViewSet
+from permissions.views import PermissionViewSet
+from metas.views import MetaViewSet
+from attachments.views import AttachmentViewSet
+from links.views import LinkViewSet
+from comments.views import CommentViewSet
+
+router = routers.DefaultRouter()
+router.register('options', OptionViewSet, basename='options')
+router.register('contents', ContentsViewSet, basename='contents')
+router.register('groups', GroupViewSet, basename='groups')
+router.register('users', UserViewSet, basename='users')
+router.register('permissions', PermissionViewSet, basename='permissions')
+router.register('metas', MetaViewSet, basename='metas')
+router.register('attachments', AttachmentViewSet, basename='attachments')
+router.register('links', LinkViewSet, basename='links')
+router.register('comments', CommentViewSet, basename='comments')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path('^api-auth/', include('rest_framework.urls'))
+    path('docs/', include_docs_urls(title="Marilyn接口调试")),
+    # re_path('^api-auth/', include('rest_framework.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/', include(router.urls))
 ]

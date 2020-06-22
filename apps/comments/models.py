@@ -18,19 +18,20 @@ class CommentsModel(models.Model):
     # 允许为空, 空代表游客
     authorId = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     mail = models.EmailField(max_length=50, verbose_name="邮箱")
-    url = models.CharField(max_length=50, verbose_name="主页")
+    url = models.URLField(null=True, blank=True, verbose_name="主页")
     ip = models.GenericIPAddressField(max_length=20, verbose_name="ip地址")
     agent = models.CharField(max_length=200, verbose_name="用户代理")
     text = models.TextField(max_length=300, verbose_name="评论内容")
+    # 默认为comment, 暂无其他作用
     type = models.CharField(default="comment", max_length=20, verbose_name="类型")
     status = models.CharField(choices=STATUS_CHOICES, max_length=10, verbose_name="状态")
     parent = models.ForeignKey('self', null=True, blank=True, verbose_name="上级", on_delete=models.CASCADE)
     stars = models.IntegerField(default=0, verbose_name="点赞数")
 
     class Meta:
-        verbose_name = "留言管理"
+        verbose_name = "留言/评论"
         verbose_name_plural = verbose_name
-        ordering = ['coid']
+        ordering = ['-created']
         db_table = "marilyn_comments"
 
     def __str__(self):

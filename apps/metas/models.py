@@ -16,9 +16,10 @@ class MetasModel(models.Model):
     parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, verbose_name="上级分类")
 
     class Meta:
-        verbose_name = "分类管理"
+        verbose_name = "分类"
         verbose_name_plural = verbose_name
         db_table = "marilyn_metas"
+        ordering = ['order']
 
     def __str__(self):
         return self.name
