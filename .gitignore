@@ -147,3 +147,4 @@ db.sqlite3.bak
 将删除 .idea/
 !/apps/attachments/migrations/__init__.py
 apps/relationships
+vue-element-admin

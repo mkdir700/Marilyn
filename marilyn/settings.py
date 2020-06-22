@@ -176,7 +176,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     # 方便开发调试,过期时间调为30秒
-    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=30),  # 指定第一次获取token的有效时间
-    # 'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),  # 指定第一次获取token的有效时间
+    # 'ACCESS_TOKEN_LIFETIME': timedelta(seconds=30),  # 指定第一次获取token的有效时间
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),  # 指定第一次获取token的有效时间
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # 刷新获取后token的失效时间
 }
