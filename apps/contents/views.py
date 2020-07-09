@@ -5,6 +5,8 @@ from rest_framework.permissions import DjangoModelPermissions, IsAdminUser
 from .serializers import *
 from .models import ContentsModel
 from common.mixin import DeleteMultipleModelMixin
+from .paginations import ContentListPagination
+from .filters import ContentFilter, filters
 
 
 class ContentsViewSet(viewsets.ModelViewSet, DeleteMultipleModelMixin):
@@ -13,6 +15,9 @@ class ContentsViewSet(viewsets.ModelViewSet, DeleteMultipleModelMixin):
     authentication_classes = [SessionAuthentication, JWTAuthentication]
     permission_classes = [DjangoModelPermissions, IsAdminUser]
     serializer_class = ContentSerializer
+    pagination_class = ContentListPagination
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_class = ContentFilter
 
     def get_serializer_class(self):
         if self.action == "delete_multiple":
