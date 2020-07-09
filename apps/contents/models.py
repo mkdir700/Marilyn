@@ -34,7 +34,7 @@ class ContentsModel(models.Model):
         verbose_name = "文章"
         verbose_name_plural = verbose_name
         db_table = "marilyn_contents"
-        ordering = ['cid']
+        ordering = ['-cid']
 
     def __str__(self):
         return self.title
